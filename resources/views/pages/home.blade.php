@@ -1,0 +1,155 @@
+@extends('layouts.app')
+@section('title', \App\Models\Setting::get('site_name') . ' — ' . \App\Models\Setting::get('site_tagline'))
+@section('content')
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="glow-bg glow-1"></div>
+  <div class="glow-bg glow-2"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-rocket"></i> Gələcəyin Texnologiyaları</div>
+      <h1 class="hero-title">Biznesinizi <br><span class="gradient">İnnovasiya İlə</span><br> Gələcəyə Daşıyırıq</h1>
+      <p class="hero-desc">{{ \App\Models\Setting::get('site_tagline') }}. Sürətli, təhlükəsiz və mükəmməl IT həlləri ilə rəqabətdə öndə olun.</p>
+      <div class="hero-actions">
+        <a href="{{ route('contact') }}" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Layihə Başlat</a>
+        <a href="{{ route('portfolio') }}" class="btn btn-outline"><i class="fas fa-briefcase"></i> İşlərimizə Bax</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['projects'] }}" data-suffix="+">0</div><div class="stat-label">Tamamlanmış Layihə</div></div>
+        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['clients'] }}" data-suffix="+">0</div><div class="stat-label">Məmnun Müştəri</div></div>
+        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['years'] }}" data-suffix="+">0</div><div class="stat-label">İllik Təcrübə</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="section" style="background:var(--dark2)">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Nə Edirik?</div>
+      <h2 class="section-title">Biznesiniz Üçün <span>Premium</span> IT Xidmətlər</h2>
+      <p class="section-desc">Ən müasir texnologiyaları istifadə edərək ehtiyaclarınıza uyğun xüsusi həllər yaradırıq.</p>
+    </div>
+    <div class="grid-3">
+      @foreach($services->take(6) as $s)
+      <div class="card service-card">
+        <div class="service-icon" style="background:{{ $s->color ?? '#00D4FF' }}15;color:{{ $s->color ?? '#00D4FF' }}"><i class="{{ $s->icon ?? 'fas fa-cog' }}"></i></div>
+        <h3 class="service-title">{{ $s->title }}</h3>
+        <p class="service-desc">{{ $s->short_description }}</p>
+      </div>
+      @endforeach
+    </div>
+    <div style="text-align:center;margin-top:3rem">
+      <a href="{{ route('services') }}" class="btn btn-outline">Bütün Xidmətlər <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-section">
+      <div class="about-content">
+        <div class="section-tag">Haqqımızda</div>
+        <h2 class="section-title">Niyə <span>OghuzTech</span> Seçməlisiniz?</h2>
+        <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem">{{ \App\Models\Setting::get('about_text') }}</p>
+        <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8">Biz sadəcə kod yazmırıq, biznes problemlərinizi həll edən, böyümənizi təmin edən dəyər yaradırıq.</p>
+        <div class="about-features">
+          <div class="about-feat"><i class="fas fa-check-circle"></i> Yüksək Təhlükəsizlik</div>
+          <div class="about-feat"><i class="fas fa-check-circle"></i> Sürətli Təhvil Təslim</div>
+          <div class="about-feat"><i class="fas fa-check-circle"></i> 7/24 Texniki Dəstək</div>
+          <div class="about-feat"><i class="fas fa-check-circle"></i> Müasir UI/UX Dizayn</div>
+        </div>
+      </div>
+      <div class="about-img-wrap">
+        <div style="aspect-ratio:4/3;background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(124,58,237,.2));border-radius:20px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:5rem;color:rgba(255,255,255,.1)"><i class="fas fa-code"></i></div>
+        <div class="about-badge">
+          <div style="font-size:1.8rem">{{ $stats['years'] }}+</div>
+          <div style="font-size:.75rem;font-weight:500;opacity:.8">İllik Təcrübə</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Portfolio Section -->
+<section class="section" style="background:var(--dark2)">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">İşlərimiz</div>
+      <h2 class="section-title">Son <span>Layihələrimiz</span></h2>
+    </div>
+    <div class="grid-3">
+      @foreach($portfolios as $p)
+      <div class="portfolio-card">
+        @if($p->image)<img src="{{ Storage::url($p->image) }}" class="portfolio-img" alt="{{ $p->title }}">
+        @else<div style="width:100%;height:100%;background:linear-gradient(135deg,#1A1A2E,#0A0A0F);display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(255,255,255,.05)"><i class="fas fa-briefcase"></i></div>@endif
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">{{ $p->category }}</div>
+          <h3 class="portfolio-name">{{ $p->title }}</h3>
+          <div class="portfolio-tech">{{ $p->technologies }}</div>
+        </div>
+      </div>
+      @endforeach
+    </div>
+    <div style="text-align:center;margin-top:3rem">
+      <a href="{{ route('portfolio') }}" class="btn btn-outline">Bütün Layihələr <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Müştəri Rəyləri</div>
+      <h2 class="section-title">Bizim Haqqımızda <span>Nə Deyirlər?</span></h2>
+    </div>
+    <div class="grid-3">
+      @foreach($testimonials->take(3) as $t)
+      <div class="card testimonial-card">
+        <div class="stars">{{ str_repeat('★', $t->rating) }}</div>
+        <p class="testimonial-text">"{{ $t->content }}"</p>
+        <div class="testimonial-author">
+          @if($t->avatar)<img src="{{ Storage::url($t->avatar) }}" class="author-avatar" alt="" style="object-fit:cover">
+          @else<div class="author-avatar">{{ strtoupper(substr($t->name,0,1)) }}</div>@endif
+          <div>
+            <div class="author-name">{{ $t->name }}</div>
+            <div class="author-meta">{{ $t->position }}, {{ $t->company }}</div>
+          </div>
+        </div>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+<!-- Blog Section -->
+<section class="section" style="background:var(--dark2)">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Blog</div>
+      <h2 class="section-title">Son <span>Məqalələr</span></h2>
+    </div>
+    <div class="grid-3">
+      @foreach($posts as $post)
+      <article class="blog-card-wrap">
+        @if($post->image)<img src="{{ Storage::url($post->image) }}" class="blog-img" alt="">
+        @else<div class="blog-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(255,255,255,.05)"><i class="fas fa-newspaper"></i></div>@endif
+        <div class="blog-body">
+          <div class="blog-cat">{{ $post->category }}</div>
+          <h3 class="blog-title"><a href="{{ route('blog.post',$post->slug) }}">{{ $post->title }}</a></h3>
+          <p class="blog-excerpt">{{ Str::limit($post->excerpt ?: strip_tags($post->content), 80) }}</p>
+          <div class="blog-meta">
+            <span><i class="far fa-calendar"></i> {{ $post->created_at->format('d M, Y') }}</span>
+            <span><i class="far fa-clock"></i> {{ $post->read_time }} dəq oxuma</span>
+          </div>
+        </div>
+      </article>
+      @endforeach
+    </div>
+  </div>
+</section>
+@endsection
