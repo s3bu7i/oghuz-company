@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', \App\Models\Setting::get('site_name') . ' — ' . \App\Models\Setting::get('site_tagline'))
+@section('title', 'OghuzTech - ' . __('messages.site_tagline'))
 @section('content')
 
 <!-- Hero Section -->
@@ -8,17 +8,17 @@
   <div class="glow-bg glow-2"></div>
   <div class="container">
     <div class="hero-content">
-      <div class="hero-badge"><i class="fas fa-rocket"></i> Gələcəyin Texnologiyaları</div>
-      <h1 class="hero-title">Biznesinizi <br><span class="gradient">İnnovasiya İlə</span><br> Gələcəyə Daşıyırıq</h1>
-      <p class="hero-desc">{{ \App\Models\Setting::get('site_tagline') }}. Sürətli, təhlükəsiz və mükəmməl IT həlləri ilə rəqabətdə öndə olun.</p>
+      <div class="hero-badge"><i class="fas fa-rocket"></i> {{ __('messages.home_badge') }}</div>
+      <h1 class="hero-title">{{ __('messages.home_title_1') }} <br><span class="gradient">{{ __('messages.home_title_gradient') }}</span><br> {{ __('messages.home_title_2') }}</h1>
+      <p class="hero-desc">{{ __('messages.site_tagline') }} {{ __('messages.home_desc_suffix') }}</p>
       <div class="hero-actions">
-        <a href="{{ route('contact') }}" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Layihə Başlat</a>
-        <a href="{{ route('portfolio') }}" class="btn btn-outline"><i class="fas fa-briefcase"></i> İşlərimizə Bax</a>
+        <a href="{{ route('contact') }}" class="btn btn-primary"><i class="fas fa-paper-plane"></i> {{ __('messages.start_project') }}</a>
+        <a href="{{ route('portfolio') }}" class="btn btn-outline"><i class="fas fa-briefcase"></i> {{ __('messages.view_work') }}</a>
       </div>
       <div class="hero-stats">
-        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['projects'] }}" data-suffix="+">0</div><div class="stat-label">Tamamlanmış Layihə</div></div>
-        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['clients'] }}" data-suffix="+">0</div><div class="stat-label">Məmnun Müştəri</div></div>
-        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['years'] }}" data-suffix="+">0</div><div class="stat-label">İllik Təcrübə</div></div>
+        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['projects'] }}" data-suffix="+">0</div><div class="stat-label">{{ __('messages.stats_projects') }}</div></div>
+        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['clients'] }}" data-suffix="+">0</div><div class="stat-label">{{ __('messages.stats_clients') }}</div></div>
+        <div class="stat-item"><div class="stat-num counter" data-target="{{ $stats['years'] }}" data-suffix="+">0</div><div class="stat-label">{{ __('messages.stats_years') }}</div></div>
       </div>
     </div>
   </div>
@@ -28,9 +28,9 @@
 <section class="section" style="background:var(--dark2)">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag">Nə Edirik?</div>
-      <h2 class="section-title">Biznesiniz Üçün <span>Premium</span> IT Xidmətlər</h2>
-      <p class="section-desc">Ən müasir texnologiyaları istifadə edərək ehtiyaclarınıza uyğun xüsusi həllər yaradırıq.</p>
+      <div class="section-tag">{{ __('messages.what_we_do') }}</div>
+      <h2 class="section-title">{!! __('messages.premium_services_title') !!}</h2>
+      <p class="section-desc">{{ __('messages.premium_services_desc') }}</p>
     </div>
     <div class="grid-3">
       @foreach($services->take(6) as $s)
@@ -42,7 +42,7 @@
       @endforeach
     </div>
     <div style="text-align:center;margin-top:3rem">
-      <a href="{{ route('services') }}" class="btn btn-outline">Bütün Xidmətlər <i class="fas fa-arrow-right"></i></a>
+      <a href="{{ route('services') }}" class="btn btn-outline">{{ __('messages.all_services') }} <i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
 </section>
@@ -52,22 +52,22 @@
   <div class="container">
     <div class="about-section">
       <div class="about-content">
-        <div class="section-tag">Haqqımızda</div>
-        <h2 class="section-title">Niyə <span>OghuzTech</span> Seçməlisiniz?</h2>
-        <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem">{{ \App\Models\Setting::get('about_text') }}</p>
-        <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8">Biz sadəcə kod yazmırıq, biznes problemlərinizi həll edən, böyümənizi təmin edən dəyər yaradırıq.</p>
+        <div class="section-tag">{{ __('messages.about') }}</div>
+        <h2 class="section-title">{!! __('messages.why_title') !!}</h2>
+        <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem">{{ __('messages.about_text') }}</p>
+        <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8">{{ __('messages.about_text_2') }}</p>
         <div class="about-features">
-          <div class="about-feat"><i class="fas fa-check-circle"></i> Yüksək Təhlükəsizlik</div>
-          <div class="about-feat"><i class="fas fa-check-circle"></i> Sürətli Təhvil Təslim</div>
-          <div class="about-feat"><i class="fas fa-check-circle"></i> 7/24 Texniki Dəstək</div>
-          <div class="about-feat"><i class="fas fa-check-circle"></i> Müasir UI/UX Dizayn</div>
+          <div class="about-feat"><i class="fas fa-check-circle"></i> {{ __('messages.feature_security') }}</div>
+          <div class="about-feat"><i class="fas fa-check-circle"></i> {{ __('messages.feature_delivery') }}</div>
+          <div class="about-feat"><i class="fas fa-check-circle"></i> {{ __('messages.feature_support') }}</div>
+          <div class="about-feat"><i class="fas fa-check-circle"></i> {{ __('messages.feature_design') }}</div>
         </div>
       </div>
       <div class="about-img-wrap">
         <div style="aspect-ratio:4/3;background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(124,58,237,.2));border-radius:20px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:5rem;color:rgba(255,255,255,.1)"><i class="fas fa-code"></i></div>
         <div class="about-badge">
           <div style="font-size:1.8rem">{{ $stats['years'] }}+</div>
-          <div style="font-size:.75rem;font-weight:500;opacity:.8">İllik Təcrübə</div>
+          <div style="font-size:.75rem;font-weight:500;opacity:.8">{{ __('messages.stats_years') }}</div>
         </div>
       </div>
     </div>
@@ -78,8 +78,8 @@
 <section class="section" style="background:var(--dark2)">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag">İşlərimiz</div>
-      <h2 class="section-title">Son <span>Layihələrimiz</span></h2>
+      <div class="section-tag">{{ __('messages.our_work') }}</div>
+      <h2 class="section-title">{!! __('messages.latest_projects') !!}</h2>
     </div>
     <div class="grid-3">
       @foreach($portfolios as $p)
@@ -95,7 +95,7 @@
       @endforeach
     </div>
     <div style="text-align:center;margin-top:3rem">
-      <a href="{{ route('portfolio') }}" class="btn btn-outline">Bütün Layihələr <i class="fas fa-arrow-right"></i></a>
+      <a href="{{ route('portfolio') }}" class="btn btn-outline">{{ __('messages.all_projects') }} <i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
 </section>
@@ -104,8 +104,8 @@
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag">Müştəri Rəyləri</div>
-      <h2 class="section-title">Bizim Haqqımızda <span>Nə Deyirlər?</span></h2>
+      <div class="section-tag">{{ __('messages.testimonials') }}</div>
+      <h2 class="section-title">{!! __('messages.testimonials_title') !!}</h2>
     </div>
     <div class="grid-3">
       @foreach($testimonials->take(3) as $t)
@@ -130,8 +130,8 @@
 <section class="section" style="background:var(--dark2)">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag">Blog</div>
-      <h2 class="section-title">Son <span>Məqalələr</span></h2>
+      <div class="section-tag">{{ __('messages.nav_blog') }}</div>
+      <h2 class="section-title">{!! __('messages.latest_articles') !!}</h2>
     </div>
     <div class="grid-3">
       @foreach($posts as $post)
@@ -144,7 +144,7 @@
           <p class="blog-excerpt">{{ Str::limit($post->excerpt ?: strip_tags($post->content), 80) }}</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar"></i> {{ $post->created_at->format('d M, Y') }}</span>
-            <span><i class="far fa-clock"></i> {{ $post->read_time }} dəq oxuma</span>
+            <span><i class="far fa-clock"></i> {{ $post->read_time }} {{ __('messages.read_minutes') }}</span>
           </div>
         </div>
       </article>

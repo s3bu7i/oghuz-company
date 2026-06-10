@@ -1,3 +1,77 @@
+// ── Creative Loader ─────────────────────────────────────────────────────────
+const siteLoader = document.getElementById('siteLoader');
+const loaderCount = document.getElementById('loaderCount');
+const loaderBlocks = document.querySelectorAll('#loaderBlocks span');
+const loaderStatus = document.getElementById('loaderStatus');
+const loaderSessionKey = 'oghuztech_loader_seen';
+let shouldShowLoader = true;
+
+try {
+    shouldShowLoader = sessionStorage.getItem(loaderSessionKey) !== '1';
+    if (shouldShowLoader) sessionStorage.setItem(loaderSessionKey, '1');
+} catch {
+    shouldShowLoader = true;
+}
+
+if (siteLoader && !shouldShowLoader) {
+    siteLoader.remove();
+}
+
+if (siteLoader && shouldShowLoader) {
+    document.body.classList.add('loading');
+    let progress = 0;
+    let loaderDone = false;
+    let stepIndex = 0;
+    const steps = [3, 8, 13, 21, 27, 34, 42, 48, 57, 63, 71, 78, 84, 89, 94];
+
+    const updateLoader = () => {
+        const activeBlocks = Math.ceil((progress / 100) * loaderBlocks.length);
+        loaderBlocks.forEach((block, index) => block.classList.toggle('is-active', index < activeBlocks));
+        if (loaderCount) loaderCount.textContent = `${progress}%`;
+    };
+
+    updateLoader();
+    const loaderTimer = setInterval(() => {
+        const target = steps[stepIndex] ?? Math.min(progress + 1, 96);
+        progress += Math.max(1, Math.ceil((target - progress) * 0.45));
+        if (progress >= target) stepIndex += 1;
+        progress = Math.min(progress, 96);
+        updateLoader();
+    }, 140);
+
+    const finishLoader = () => {
+        if (loaderDone) return;
+        loaderDone = true;
+        clearInterval(loaderTimer);
+        const finishTimer = setInterval(() => {
+            progress = Math.min(progress + 2, 100);
+            updateLoader();
+            if (progress >= 100) {
+                clearInterval(finishTimer);
+                if (loaderStatus) loaderStatus.textContent = '100% LOADED';
+                siteLoader.classList.add('is-complete');
+            }
+        }, 35);
+        setTimeout(() => {
+            siteLoader.classList.add('is-hidden');
+            document.body.classList.remove('loading');
+        }, 2700);
+    };
+
+    window.addEventListener('load', () => setTimeout(finishLoader, 450), { once: true });
+    setTimeout(finishLoader, 2600);
+}
+
+// ── Cursor glow ─────────────────────────────────────────────────────────────
+const cursorGlow = document.getElementById('cursorGlow');
+if (cursorGlow && window.matchMedia('(pointer:fine)').matches) {
+    window.addEventListener('pointermove', (e) => {
+        document.body.classList.add('cursor-active');
+        cursorGlow.style.transform = `translate3d(${e.clientX - 130}px, ${e.clientY - 130}px, 0)`;
+    });
+    window.addEventListener('pointerleave', () => document.body.classList.remove('cursor-active'));
+}
+
 // ── Particle Canvas ─────────────────────────────────────────────────────────
 const canvas = document.getElementById('particleCanvas');
 if (canvas) {
@@ -35,6 +109,31 @@ if (canvas) {
     }
     animate();
 }
+
+// ── Scroll reveal ───────────────────────────────────────────────────────────
+const revealTargets = document.querySelectorAll('.section-header,.card,.portfolio-card,.blog-card-wrap,.contact-item,.contact-form,.about-section,.hero-badge,.hero-title,.hero-desc,.hero-actions,.hero-stats');
+revealTargets.forEach((el, index) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${Math.min(index % 6, 5) * 70}ms`;
+});
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+revealTargets.forEach(el => revealObserver.observe(el));
+
+// ── Interactive light on cards ──────────────────────────────────────────────
+document.querySelectorAll('.card,.blog-card-wrap,.contact-form').forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+        el.style.setProperty('--my', `${e.clientY - rect.top}px`);
+    });
+});
 
 // ── Navbar scroll ────────────────────────────────────────────────────────────
 const navbar = document.getElementById('navbar');
@@ -75,7 +174,9 @@ if (contactForm) {
         e.preventDefault();
         const btn = contactForm.querySelector('[type="submit"]');
         const orig = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Göndərilir...';
+        const sendingText = contactForm.dataset.sending || 'Göndərilir...';
+        const errorText = contactForm.dataset.error || 'Xəta baş verdi!';
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${sendingText}`;
         btn.disabled = true;
         try {
             const res = await fetch(contactForm.action, {
@@ -85,8 +186,8 @@ if (contactForm) {
             });
             const data = await res.json();
             if (data.success) { showToast(data.message); contactForm.reset(); }
-            else { showToast('Xəta baş verdi!', 'error'); }
-        } catch { showToast('Xəta baş verdi!', 'error'); }
+            else { showToast(errorText, 'error'); }
+        } catch { showToast(errorText, 'error'); }
         finally { btn.innerHTML = orig; btn.disabled = false; }
     });
 }

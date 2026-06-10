@@ -10,6 +10,14 @@ use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TestimonialController;
 
+Route::get('/lang/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, ['az', 'en'], true), 404);
+
+    session(['locale' => $locale]);
+
+    return back();
+})->name('language.switch');
+
 // ── Public Routes ──────────────────────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/xidmetler', [HomeController::class, 'services'])->name('services');

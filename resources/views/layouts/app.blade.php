@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'OghuzTech — IT Həlləri Şirkəti')</title>
-    <meta name="description" content="@yield('description', 'OghuzTech — Azərbaycanda premium IT həlləri. Proqram inkişafı, bulud, kibertəhlükəsizlik, mobil tətbiqlər.')">
+    <title>@yield('title', __('messages.meta_title'))</title>
+    <meta name="description" content="@yield('description', __('messages.meta_description'))">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,26 +14,53 @@
     @yield('head')
 </head>
 <body>
+    @php($locale = app()->getLocale())
+
+    <!-- Creative Loader -->
+    <div class="site-loader" id="siteLoader" aria-label="Loading">
+        <div class="loader-panel">
+            <div class="loader-top">
+                <div class="loader-blocks" id="loaderBlocks" aria-hidden="true">
+                    @for($i = 0; $i < 10; $i++)
+                        <span></span>
+                    @endfor
+                </div>
+                <div class="loader-count" id="loaderCount">0%</div>
+            </div>
+            <div class="loader-title" id="loaderStatus">LOADING CONTENT</div>
+            <div class="loader-complete" id="loaderComplete" aria-hidden="true">
+                <div class="loader-brand">OghuzTech</div>
+                <div class="loader-loaded">100% LOADED</div>
+                <div class="loader-ready">READY TO EXPLORE</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cursor-glow" id="cursorGlow"></div>
+
     <!-- Particle Canvas -->
     <canvas id="particleCanvas"></canvas>
 
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="{{ route('home') }}" class="nav-logo">
-                <span class="logo-icon"><i class="fas fa-microchip"></i></span>
-                <span class="logo-text">Oghuz<span class="logo-accent">Tech</span></span>
+            <a href="{{ route('home') }}" class="nav-logo" aria-label="OghuzTech">
+                <img src="{{ asset('images/logo-nav.png') }}" class="logo-img" alt="OghuzTech">
             </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Ana Səhifə</a></li>
-                <li><a href="{{ route('services') }}" class="{{ request()->routeIs('services') ? 'active' : '' }}">Xidmətlər</a></li>
-                <li><a href="{{ route('portfolio') }}" class="{{ request()->routeIs('portfolio') ? 'active' : '' }}">Portfolio</a></li>
-                <li><a href="{{ route('blog') }}" class="{{ request()->routeIs('blog*') ? 'active' : '' }}">Blog</a></li>
-                <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Əlaqə</a></li>
+                <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">{{ __('messages.nav_home') }}</a></li>
+                <li><a href="{{ route('services') }}" class="{{ request()->routeIs('services') ? 'active' : '' }}">{{ __('messages.nav_services') }}</a></li>
+                <li><a href="{{ route('portfolio') }}" class="{{ request()->routeIs('portfolio') ? 'active' : '' }}">{{ __('messages.nav_portfolio') }}</a></li>
+                <li><a href="{{ route('blog') }}" class="{{ request()->routeIs('blog*') ? 'active' : '' }}">{{ __('messages.nav_blog') }}</a></li>
+                <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">{{ __('messages.nav_contact') }}</a></li>
             </ul>
             <div class="nav-actions">
+                <div class="lang-switch" aria-label="{{ __('messages.language') }}">
+                    <a href="{{ route('language.switch', 'az') }}" class="{{ $locale === 'az' ? 'active' : '' }}">AZ</a>
+                    <a href="{{ route('language.switch', 'en') }}" class="{{ $locale === 'en' ? 'active' : '' }}">EN</a>
+                </div>
                 <a href="{{ route('contact') }}" class="btn-primary-sm">
-                    <i class="fas fa-rocket"></i> Layihə Başlat
+                    <i class="fas fa-rocket"></i> {{ __('messages.start_project') }}
                 </a>
                 <button class="hamburger" id="hamburger" aria-label="Menu">
                     <span></span><span></span><span></span>
@@ -44,12 +71,16 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="{{ route('home') }}">Ana Səhifə</a>
-        <a href="{{ route('services') }}">Xidmətlər</a>
-        <a href="{{ route('portfolio') }}">Portfolio</a>
-        <a href="{{ route('blog') }}">Blog</a>
-        <a href="{{ route('contact') }}">Əlaqə</a>
-        <a href="{{ route('contact') }}" class="btn-primary-sm" style="display:inline-block;margin-top:1rem;">Layihə Başlat</a>
+        <a href="{{ route('home') }}">{{ __('messages.nav_home') }}</a>
+        <a href="{{ route('services') }}">{{ __('messages.nav_services') }}</a>
+        <a href="{{ route('portfolio') }}">{{ __('messages.nav_portfolio') }}</a>
+        <a href="{{ route('blog') }}">{{ __('messages.nav_blog') }}</a>
+        <a href="{{ route('contact') }}">{{ __('messages.nav_contact') }}</a>
+        <div class="lang-switch lang-switch-mobile" aria-label="{{ __('messages.language') }}">
+            <a href="{{ route('language.switch', 'az') }}" class="{{ $locale === 'az' ? 'active' : '' }}">AZ</a>
+            <a href="{{ route('language.switch', 'en') }}" class="{{ $locale === 'en' ? 'active' : '' }}">EN</a>
+        </div>
+        <a href="{{ route('contact') }}" class="btn-primary-sm" style="display:inline-block;margin-top:1rem;">{{ __('messages.start_project') }}</a>
     </div>
 
     <!-- Main Content -->
@@ -63,11 +94,10 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="{{ route('home') }}" class="nav-logo">
-                        <span class="logo-icon"><i class="fas fa-microchip"></i></span>
-                        <span class="logo-text">Oghuz<span class="logo-accent">Tech</span></span>
+                    <a href="{{ route('home') }}" class="nav-logo footer-logo" aria-label="OghuzTech">
+                        <img src="{{ asset('images/logo-nav.png') }}" class="logo-img" alt="OghuzTech">
                     </a>
-                    <p>Azərbaycanda innovativ IT həlləri ilə biznesinizi gələcəyə daşıyırıq. 2016-dan bəri güvənilir texnologiya tərəfdaşınız.</p>
+                    <p>{{ __('messages.footer_about') }}</p>
                     <div class="social-links">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -77,48 +107,48 @@
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h4>Xidmətlər</h4>
+                    <h4>{{ __('messages.footer_services') }}</h4>
                     <ul>
-                        <li><a href="{{ route('services') }}">Proqram Təminatı</a></li>
-                        <li><a href="{{ route('services') }}">Bulud Həlləri</a></li>
-                        <li><a href="{{ route('services') }}">Kibertəhlükəsizlik</a></li>
-                        <li><a href="{{ route('services') }}">Mobil Tətbiqlər</a></li>
-                        <li><a href="{{ route('services') }}">AI Həlləri</a></li>
-                        <li><a href="{{ route('services') }}">IT Konsaltinq</a></li>
+                        <li><a href="{{ route('services') }}">{{ __('messages.footer_software') }}</a></li>
+                        <li><a href="{{ route('services') }}">{{ __('messages.footer_cloud') }}</a></li>
+                        <li><a href="{{ route('services') }}">{{ __('messages.footer_security') }}</a></li>
+                        <li><a href="{{ route('services') }}">{{ __('messages.footer_mobile') }}</a></li>
+                        <li><a href="{{ route('services') }}">{{ __('messages.footer_ai') }}</a></li>
+                        <li><a href="{{ route('services') }}">{{ __('messages.footer_consulting') }}</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Şirkət</h4>
+                    <h4>{{ __('messages.footer_company') }}</h4>
                     <ul>
-                        <li><a href="{{ route('home') }}#about">Haqqımızda</a></li>
-                        <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
-                        <li><a href="{{ route('blog') }}">Blog</a></li>
-                        <li><a href="{{ route('contact') }}">Əlaqə</a></li>
+                        <li><a href="{{ route('home') }}#about">{{ __('messages.footer_about_link') }}</a></li>
+                        <li><a href="{{ route('portfolio') }}">{{ __('messages.nav_portfolio') }}</a></li>
+                        <li><a href="{{ route('blog') }}">{{ __('messages.nav_blog') }}</a></li>
+                        <li><a href="{{ route('contact') }}">{{ __('messages.nav_contact') }}</a></li>
                         <li><a href="{{ route('admin.dashboard') }}">Admin Panel</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Əlaqə</h4>
+                    <h4>{{ __('messages.footer_contact') }}</h4>
                     <ul class="contact-list">
                         <li><i class="fas fa-phone"></i><a href="tel:+994508816613">+994 50 881 66 13</a></li>
                         <li><i class="fas fa-envelope"></i><a href="mailto:sabuhi.gasimzada@gmail.com">sabuhi.gasimzada@gmail.com</a></li>
-                        <li><i class="fas fa-map-marker-alt"></i><span>Bakı, Azərbaycan</span></li>
-                        <li><i class="fas fa-clock"></i><span>B.e – Cümə: 09:00–18:00</span></li>
+                        <li><i class="fas fa-map-marker-alt"></i><span>{{ __('messages.footer_address') }}</span></li>
+                        <li><i class="fas fa-clock"></i><span>{{ __('messages.footer_hours') }}</span></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} OghuzTech. Bütün hüquqlar qorunur.</p>
+                <p>&copy; {{ date('Y') }} OghuzTech. {{ __('messages.footer_rights') }}</p>
                 <div class="footer-live">
                     <span class="live-dot"></span>
-                    <span id="onlineCount">12</span> nəfər onlayndır
+                    <span id="onlineCount">12</span> {{ __('messages.footer_online') }}
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Scroll to Top -->
-    <button class="scroll-top" id="scrollTop" aria-label="Yuxarı qayıt">
+    <button class="scroll-top" id="scrollTop" aria-label="{{ __('messages.scroll_top') }}">
         <i class="fas fa-chevron-up"></i>
     </button>
 

@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', 'Portfolio — ' . \App\Models\Setting::get('site_name'))
+@section('title', __('messages.nav_portfolio') . ' - OghuzTech')
 @section('content')
 
 <div class="page-hero">
   <div class="container">
-    <h1>Portfolio</h1>
-    <p>Son tamamladığımız layihələr və həllər</p>
+    <h1>{{ __('messages.nav_portfolio') }}</h1>
+    <p>{{ __('messages.portfolio_subtitle') }}</p>
     <div class="breadcrumb">
-      <a href="{{ route('home') }}">Ana Səhifə</a> / <span>Portfolio</span>
+      <a href="{{ route('home') }}">{{ __('messages.nav_home') }}</a> / <span>{{ __('messages.nav_portfolio') }}</span>
     </div>
   </div>
 </div>
@@ -15,7 +15,7 @@
 <section class="section">
   <div class="container">
     <div class="portfolio-filter">
-      <button class="filter-btn active" data-cat="all">Hamısı</button>
+      <button class="filter-btn active" data-cat="all">{{ __('messages.all') }}</button>
       @foreach($categories as $cat)
         @if($cat)<button class="filter-btn" data-cat="{{ Str::slug($cat) }}">{{ $cat }}</button>@endif
       @endforeach
@@ -31,7 +31,7 @@
           <h3 class="portfolio-name">{{ $p->title }}</h3>
           <div class="portfolio-tech">{{ $p->technologies }}</div>
           @if($p->url)
-            <a href="{{ $p->url }}" target="_blank" class="btn btn-outline btn-sm" style="margin-top:1rem;align-self:flex-start;padding:.4rem 1rem">Layihəyə Bax <i class="fas fa-external-link-alt" style="font-size:.75rem"></i></a>
+            <a href="{{ $p->url }}" target="_blank" class="btn btn-outline btn-sm" style="margin-top:1rem;align-self:flex-start;padding:.4rem 1rem">{{ __('messages.view_project') }} <i class="fas fa-external-link-alt" style="font-size:.75rem"></i></a>
           @endif
         </div>
       </div>

@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', 'Xidmətlər — ' . \App\Models\Setting::get('site_name'))
+@section('title', __('messages.nav_services') . ' - OghuzTech')
 @section('content')
 
 <div class="page-hero">
   <div class="container">
-    <h1>Xidmətlərimiz</h1>
-    <p>Biznesinizin rəqəmsal transformasiyası üçün təklif etdiyimiz həllər</p>
+    <h1>{{ __('messages.services_title') }}</h1>
+    <p>{{ __('messages.services_subtitle') }}</p>
     <div class="breadcrumb">
-      <a href="{{ route('home') }}">Ana Səhifə</a> / <span>Xidmətlər</span>
+      <a href="{{ route('home') }}">{{ __('messages.nav_home') }}</a> / <span>{{ __('messages.nav_services') }}</span>
     </div>
   </div>
 </div>
@@ -29,9 +29,9 @@
 <!-- Call to action -->
 <section class="section" style="background:linear-gradient(135deg,rgba(0,212,255,.05),rgba(124,58,237,.05));text-align:center">
   <div class="container">
-    <h2 class="section-title" style="font-size:2.2rem;margin-bottom:1rem">Layihənizi <span>Bizimlə</span> Başlayın</h2>
-    <p class="section-desc" style="margin-bottom:2rem">Peşəkar komandamız sizin ideyalarınızı reallığa çevirməyə hazırdır.</p>
-    <a href="{{ route('contact') }}" class="btn btn-primary" style="padding:1rem 2.5rem;font-size:1.05rem">Bizimlə Əlaqə</a>
+    <h2 class="section-title" style="font-size:2.2rem;margin-bottom:1rem">{!! __('messages.services_cta_title') !!}</h2>
+    <p class="section-desc" style="margin-bottom:2rem">{{ __('messages.services_cta_desc') }}</p>
+    <a href="{{ route('contact') }}" class="btn btn-primary" style="padding:1rem 2.5rem;font-size:1.05rem">{{ __('messages.contact_us') }}</a>
   </div>
 </section>
 @endsection

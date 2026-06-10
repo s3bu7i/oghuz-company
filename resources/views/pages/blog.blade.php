@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', 'Blog — ' . \App\Models\Setting::get('site_name'))
+@section('title', __('messages.nav_blog') . ' - OghuzTech')
 @section('content')
 
 <div class="page-hero">
   <div class="container">
-    <h1>Blog</h1>
-    <p>IT, texnologiya, və biznes haqqında son məqalələr</p>
+    <h1>{{ __('messages.nav_blog') }}</h1>
+    <p>{{ __('messages.blog_subtitle') }}</p>
     <div class="breadcrumb">
-      <a href="{{ route('home') }}">Ana Səhifə</a> / <span>Blog</span>
+      <a href="{{ route('home') }}">{{ __('messages.nav_home') }}</a> / <span>{{ __('messages.nav_blog') }}</span>
     </div>
   </div>
 </div>
@@ -25,18 +25,18 @@
           <p class="blog-excerpt">{{ Str::limit($post->excerpt ?: strip_tags($post->content), 80) }}</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar"></i> {{ $post->created_at->format('d M, Y') }}</span>
-            <span><i class="far fa-clock"></i> {{ $post->read_time }} dəq oxuma</span>
+            <span><i class="far fa-clock"></i> {{ $post->read_time }} {{ __('messages.read_minutes') }}</span>
           </div>
         </div>
       </article>
       @empty
       <div style="grid-column:1/-1;text-align:center;padding:4rem;background:rgba(255,255,255,.02);border-radius:20px;color:var(--text-muted)">
         <i class="fas fa-newspaper" style="font-size:3rem;margin-bottom:1rem;opacity:.5"></i>
-        <h3>Hələ heç bir məqalə yoxdur</h3>
+        <h3>{{ __('messages.no_posts') }}</h3>
       </div>
       @endforelse
     </div>
-    
+
     @if($posts->hasPages())
     <div class="pagination">
       {{ $posts->links() }}

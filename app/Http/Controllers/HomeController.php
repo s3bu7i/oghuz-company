@@ -76,7 +76,7 @@ class HomeController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Mesajınız uğurla göndərildi! Qısa zamanda sizinlə əlaqə saxlayacağıq.'
+            'message' => __('messages.contact_success')
         ]);
     }
 
