@@ -10,7 +10,7 @@
       <div style="display:flex;align-items:center;justify-content:center;gap:2rem;color:var(--text-muted);font-size:.95rem">
         <span style="display:flex;align-items:center;gap:.5rem"><i class="fas fa-user-edit" style="color:var(--primary)"></i> {{ $post->author }}</span>
         <span style="display:flex;align-items:center;gap:.5rem"><i class="far fa-calendar" style="color:var(--accent)"></i> {{ $post->created_at->format('d M, Y') }}</span>
-        <span style="display:flex;align-items:center;gap:.5rem"><i class="far fa-eye" style="color:#22C55E"></i> {{ $post->views }} {{ __('messages.views') }}</span>
+        <span style="display:flex;align-items:center;gap:.5rem"><i class="far fa-eye" style="color:#22C55E"></i> {{ $post->views }} {{ __t('views') }}</span>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
       </div>
 
       <div style="margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-        <a href="{{ route('blog') }}" class="btn btn-outline"><i class="fas fa-arrow-left"></i> {{ __('messages.back_to_blog') }}</a>
+        <a href="{{ route('blog') }}" class="btn btn-outline"><i class="fas fa-arrow-left"></i> {{ __t('back_to_blog') }}</a>
         <div style="display:flex;gap:.75rem">
           <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" class="btn btn-outline" style="padding:.5rem .75rem"><i class="fab fa-facebook-f"></i></a>
           <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode($post->title) }}" target="_blank" class="btn btn-outline" style="padding:.5rem .75rem"><i class="fab fa-twitter"></i></a>
@@ -48,7 +48,7 @@
 @if($related->count() > 0)
 <section class="section" style="background:var(--dark2);padding-top:4rem;padding-bottom:5rem">
   <div class="container">
-    <h3 style="font-size:1.8rem;font-weight:700;margin-bottom:2.5rem;text-align:center">{!! __('messages.related_articles') !!}</h3>
+    <h3 style="font-size:1.8rem;font-weight:700;margin-bottom:2.5rem;text-align:center">{!! __t('related_articles') !!}</h3>
     <div class="grid-3">
       @foreach($related as $r_post)
       <article class="blog-card-wrap">

@@ -17,7 +17,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:
+body{font-family:'Plus Jakarta Sans',sans-serif;background:
   radial-gradient(ellipse at 75% 8%, rgba(37,99,235,.22), transparent 36%),
   radial-gradient(ellipse at 20% 95%, rgba(56,213,255,.12), transparent 42%),
   linear-gradient(180deg,#020617 0%,#041026 42%,#020617 100%);

@@ -3,6 +3,8 @@
 return [
     'meta_title' => 'OghuzTech - IT solutions company',
     'meta_description' => 'OghuzTech - premium IT solutions in Azerbaijan. Software development, cloud, cybersecurity and mobile applications.',
+    'brand_name' => 'OghuzTech',
+    'admin_panel' => 'Admin Panel',
 
     'nav_home' => 'Home',
     'nav_services' => 'Services',
@@ -11,6 +13,18 @@ return [
     'nav_contact' => 'Contact',
     'start_project' => 'Start Project',
     'language' => 'Language',
+    'menu' => 'Menu',
+
+    'loader_label' => 'Loading',
+    'loader_loading_content' => 'LOADING CONTENT',
+    'loader_loaded' => '100% LOADED',
+    'loader_ready' => 'READY TO EXPLORE',
+
+    'social_facebook' => 'Facebook',
+    'social_linkedin' => 'LinkedIn',
+    'social_instagram' => 'Instagram',
+    'social_twitter' => 'Twitter',
+    'social_github' => 'GitHub',
 
     'footer_about' => 'We help businesses move into the future with innovative IT solutions in Azerbaijan. Your trusted technology partner since 2016.',
     'footer_services' => 'Services',

@@ -48,7 +48,7 @@ if (siteLoader && shouldShowLoader) {
             updateLoader();
             if (progress >= 100) {
                 clearInterval(finishTimer);
-                if (loaderStatus) loaderStatus.textContent = '100% LOADED';
+                if (loaderStatus?.dataset.loaded) loaderStatus.textContent = loaderStatus.dataset.loaded;
                 siteLoader.classList.add('is-complete');
             }
         }, 35);

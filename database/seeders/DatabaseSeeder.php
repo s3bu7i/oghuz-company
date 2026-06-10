@@ -101,5 +101,7 @@ class DatabaseSeeder extends Seeder
                 'views' => rand(50, 500),
             ]));
         }
+
+        $this->call(TranslationSeeder::class);
     }
 }

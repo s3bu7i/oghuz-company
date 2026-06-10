@@ -6,12 +6,12 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>@yield('title','Admin') — OghuzTech Panel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--primary:#00D4FF;--accent:#7C3AED;--dark:#0A0A0F;--dark2:#111118;--dark3:#1A1A2E;--sidebar:#0D0D16;--text:#E2E8F0;--muted:#94A3B8;--border:rgba(255,255,255,0.07);--radius:10px;--danger:#EF4444;--success:#22C55E;--warning:#F59E0B}
-body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);display:flex;min-height:100vh;font-size:.9rem}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--dark);color:var(--text);display:flex;min-height:100vh;font-size:.9rem}
 a{color:inherit;text-decoration:none}
 /* Sidebar */
 .sidebar{width:240px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:50;transition:.3s}
@@ -139,6 +139,9 @@ img.thumb{width:48px;height:48px;object-fit:cover;border-radius:6px;background:r
         <i class="fas fa-envelope"></i> Mesajlar
         @php $unread = \App\Models\Message::unread()->count(); @endphp
         @if($unread > 0)<span class="badge-count">{{ $unread }}</span>@endif
+      </a>
+      <a href="{{ route('admin.translations.index') }}" class="{{ request()->routeIs('admin.translations*') ? 'active' : '' }}">
+        <i class="fas fa-language"></i> Tərcümələr
       </a>
       <a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings*') ? 'active' : '' }}">
         <i class="fas fa-sliders"></i> Parametrlər

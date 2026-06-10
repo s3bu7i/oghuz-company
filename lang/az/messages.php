@@ -3,6 +3,8 @@
 return [
     'meta_title' => 'OghuzTech - IT həlləri şirkəti',
     'meta_description' => 'OghuzTech - Azərbaycanda premium IT həlləri. Proqram inkişafı, bulud, kibertəhlükəsizlik, mobil tətbiqlər.',
+    'brand_name' => 'OghuzTech',
+    'admin_panel' => 'Admin Panel',
 
     'nav_home' => 'Ana Səhifə',
     'nav_services' => 'Xidmətlər',
@@ -11,6 +13,18 @@ return [
     'nav_contact' => 'Əlaqə',
     'start_project' => 'Layihə Başlat',
     'language' => 'Dil',
+    'menu' => 'Menyu',
+
+    'loader_label' => 'Yüklənir',
+    'loader_loading_content' => 'LOADING CONTENT',
+    'loader_loaded' => '100% LOADED',
+    'loader_ready' => 'READY TO EXPLORE',
+
+    'social_facebook' => 'Facebook',
+    'social_linkedin' => 'LinkedIn',
+    'social_instagram' => 'Instagram',
+    'social_twitter' => 'Twitter',
+    'social_github' => 'GitHub',
 
     'footer_about' => 'Azərbaycanda innovativ IT həlləri ilə biznesinizi gələcəyə daşıyırıq. 2016-dan bəri güvənilir texnologiya tərəfdaşınız.',
     'footer_services' => 'Xidmətlər',

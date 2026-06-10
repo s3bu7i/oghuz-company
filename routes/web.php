@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\TranslationController;
 
 Route::get('/lang/{locale}', function (string $locale) {
     abort_unless(in_array($locale, ['az', 'en'], true), 404);
@@ -44,6 +45,12 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
 
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
+
+    // Translations
+    Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');
+    Route::post('translations', [TranslationController::class, 'update'])->name('translations.update');
+    Route::post('translations/create', [TranslationController::class, 'create'])->name('translations.create');
+    Route::delete('translations/{key}', [TranslationController::class, 'destroy'])->name('translations.destroy');
 });
 
 // ── Admin Login (simple) ───────────────────────────────────────────────────────

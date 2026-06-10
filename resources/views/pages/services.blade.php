@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', __('messages.nav_services') . ' - OghuzTech')
+@section('title', __t('nav_services') . ' - ' . __t('brand_name'))
 @section('content')
 
 <div class="page-hero">
   <div class="container">
-    <h1>{{ __('messages.services_title') }}</h1>
-    <p>{{ __('messages.services_subtitle') }}</p>
+    <h1>{{ __t('services_title') }}</h1>
+    <p>{{ __t('services_subtitle') }}</p>
     <div class="breadcrumb">
-      <a href="{{ route('home') }}">{{ __('messages.nav_home') }}</a> / <span>{{ __('messages.nav_services') }}</span>
+      <a href="{{ route('home') }}">{{ __t('nav_home') }}</a> / <span>{{ __t('nav_services') }}</span>
     </div>
   </div>
 </div>
@@ -29,9 +29,9 @@
 <!-- Call to action -->
 <section class="section" style="background:linear-gradient(135deg,rgba(0,212,255,.05),rgba(124,58,237,.05));text-align:center">
   <div class="container">
-    <h2 class="section-title" style="font-size:2.2rem;margin-bottom:1rem">{!! __('messages.services_cta_title') !!}</h2>
-    <p class="section-desc" style="margin-bottom:2rem">{{ __('messages.services_cta_desc') }}</p>
-    <a href="{{ route('contact') }}" class="btn btn-primary" style="padding:1rem 2.5rem;font-size:1.05rem">{{ __('messages.contact_us') }}</a>
+    <h2 class="section-title" style="font-size:2.2rem;margin-bottom:1rem">{!! __t('services_cta_title') !!}</h2>
+    <p class="section-desc" style="margin-bottom:2rem">{{ __t('services_cta_desc') }}</p>
+    <a href="{{ route('contact') }}" class="btn btn-primary" style="padding:1rem 2.5rem;font-size:1.05rem">{{ __t('contact_us') }}</a>
   </div>
 </section>
 @endsection
